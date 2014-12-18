@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+<head>
+	<title>Test Webpage</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'subject/style.css' %}">
+</head>
+<body>
+	<form action="" method="post">
+	{% csrf_token %}
+		<p>
+			{{ form.as_p }}
+			<input type="submit" value="Submit">
+		</p>
+	</form>
+
+	{% if output %}
+	<ul>
+	{% for item in output %}
+	<li> {{ item }} </li>
+	{% endfor %}
+	</ul>
+	{% endif %}
+
+</body>
+</html>
