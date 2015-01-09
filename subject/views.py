@@ -1,28 +1,21 @@
-from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, render_to_response
-from .forms import SubjectForm
+from django.http import HttpResponse
+from django.shortcuts import render
 from .analyzer import POSTagger
 
 def search(request):
 	output = []
 	if request.method == 'POST':
-		form = SubjectForm(request.POST)
-		if form.is_valid():
-			sentence = POSTagger(form.cleaned_data['sentence'])
-			sentence.processText()
-			output = sentence.getSubject()
-			return render(request, 'subject/search.html',
-				{'form': form, 'output': output})
-		else:
-			#return with *this field is required error
-			return render(request, 'subject/search.html',
-				{'form': form, 'output': output})
-	else:
-		#METHOD == GET
-		#this asumes the browser have opened the page for the first time
-		form = SubjectForm()
+		form = request.POST['item_text']
+		sentence = POSTagger(form)
+		sentence.processText()
+		output = sentence.getSubject()
+		output = [str(x) for x in output]
 		return render(request, 'subject/search.html',
-			{'form': form, 'output': output})
+			{'text': form, 'output': output})
+
+	else:
+		return render(request, 'subject/search.html',
+			{'output': output,})
 
 
 
