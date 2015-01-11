@@ -17,3 +17,5 @@ def search(request):
 		return render(request, 'subject/home.html',
 			{'output': output,})
 
+def about(request):
+	return render(request, 'subject/about.html')
