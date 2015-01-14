@@ -5,6 +5,8 @@ from nltk.corpus import wordnet as wn
 from nltk.stem import WordNetLemmatizer
 from nltk.tag.stanford import NERTagger
 
+nltk.data.path.append('./nltk_data/')
+
 class POSTagger(object):
 	'''Class that holds POS tagger methods:
 	it should be used like this
@@ -57,7 +59,7 @@ class NERTag(object):
 		#path = self._connectToNER() #Get NER working path
 		st = NERTagger(self.CLASSIFIERJAR, self.NERJAR) #Starting connection to NER
 		return st.tag(self.text)
-	
+
 	def getSubject(self):
 		for (word, tag) in self.tagged_text:
 			if tag == 'LOCATION' or tag == 'PERSON':
@@ -83,8 +85,8 @@ def printTests():
 		pos.getSubject()
 		pos.printPOS()
 		#print("Sentence:", x, "result is" ,getSubject(tag_list))
-	
-'''	
+
+'''
 if __name__ == '__main__':
 	a = getInput()
 	print a
